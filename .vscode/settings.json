@@ -10,5 +10,7 @@
     },
     "[jsonc]": {
         "editor.tabSize": 4
-    }
+    },
+    "python.terminal.activateEnvInCurrentTerminal": true,
+    "python.terminal.activateEnvironment": true
 }
