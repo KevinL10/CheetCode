@@ -1,7 +1,7 @@
 import time
+import string
 
 import keyboard
-
 
 # time.sleep(2)
 # time.sleep(60)
@@ -44,22 +44,25 @@ class AutoSolver:
         if self.index >= len(output):
             return
 
-        if event.name == "backspace":
-            keyboard.send("backspace")
-        else:
-            # keyboard.send(f"backspace, {AutoSolver.map_chr_to_keystroke(output[self.index])}")
-            keyboard.send("backspace")
-            keyboard.write(AutoSolver.map_chr_to_keystroke(output[self.index]))
-            self.index += 1
+        if event.name not in string.printable:
+            return
+    
+        # keyboard.send(f"backspace, {AutoSolver.map_chr_to_keystroke(output[self.index])}")
+        keyboard.send("backspace")
+        keyboard.write(AutoSolver.map_chr_to_keystroke(output[self.index]))
+        self.index += 1
 
 
-    def handle_toggle(self):
+    def handle_toggle(self
         self.enabled = not self.enabled
         
     def handle_exit(self):
         exit()
 
 
-a = AutoSolver()
 
-time.sleep(60)
+if __name__ == "__main__":
+
+    a = AutoSolver()
+
+    time.sleep(60)
