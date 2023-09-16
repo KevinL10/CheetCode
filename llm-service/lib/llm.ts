@@ -22,17 +22,11 @@ dotenv.config({ path: ".env" });
  * @returns {string}
  */
 export const createPrompt = (question: string, signature: string): string => {
-    const prompt = `You are an expert competitive programmer. You write efficient code. You are currently in a technical interview.
-
-    Output the solution to the following programming question. Only output code. Do not output any explanatory comments. The function should be written in Python3. Every line output should be valid Python3. Here is your problem:
-
-    ${question}
-
+    const prompt = `Solve the coding challenge, using Python3:
+    \`\`\`${question}\`\`\`
     Your solution must match this function signature:
-
-    ${signature}
-
-    Make sure to think of common test cases and edge cases. Your solution should be as efficient as possible. Good luck!
+    \`\`\`${signature}\`\`\`
+    Do not include comments in your solution. Make sure your code passes all test cases, is readable, and is efficient.
     `;
 
     console.log(prompt);
