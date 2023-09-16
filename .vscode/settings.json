@@ -4,5 +4,11 @@
     "editor.codeActionsOnSave": {
         "source.fixAll": true,
         "source.organizeImports": true
+    },
+    "[json]": {
+        "editor.tabSize": 4
+    },
+    "[jsonc]": {
+        "editor.tabSize": 4
     }
 }
