@@ -1,6 +1,7 @@
 from base64 import b64decode
 
 import time
+from flask import Flask, request
 import string
 
 import keyboard
@@ -22,7 +23,9 @@ class AutoSolver:
         self.current_line = 0
         self.index = 0
         self.enabled = False
-        
+
+    def start(self):
+        print("[x] Starting keyboard")
         keyboard.add_hotkey('ctrl+q', self.handle_toggle, suppress=True)
 
 
@@ -66,8 +69,8 @@ class AutoSolver:
 
 
     def handle_toggle(self):
-        print("Toggle ", self.enabled)
         self.enabled = not self.enabled
+        print("Toggle ", "on" if self.enabled else "off")
 
         if self.enabled:
             for c in string.ascii_uppercase + string.ascii_lowercase:
@@ -87,8 +90,17 @@ class AutoSolver:
 
 
 
-if __name__ == "__main__":
-    # solver = AutoSolver(b64decode(sys.argv[1]).decode())
-    solver = AutoSolver(output)
+app = Flask(__name__)
 
+@app.route('/activate', methods=["POST"])
+def activate():
+
+    solver = AutoSolver(request.json["code"])
+    solver.start()
+
+    return {"message": "success"}
+
+
+if __name__ == "__main__":
+    app.run(debug=True, port=5000, host='0.0.0.0')
     time.sleep(60)
