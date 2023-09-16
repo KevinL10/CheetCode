@@ -1,0 +1,13 @@
+{
+    "name": "Algo Interview LLM",
+    "manifest_version": 3,
+    "version": "1.0",
+    "description": "Demonstrates the infeasibility of tech interviews by automating the process with LLMs",
+    "content_scripts": [
+        {
+          "js": ["content.js"],
+          "matches": ["https://*/*"]
+        }
+      ],
+      "permissions": ["activeTab", "storage", "tabs", "scripting", "webRequest"]
+  }
