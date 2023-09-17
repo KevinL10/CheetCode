@@ -4,6 +4,10 @@
     <img width="30%" src="./images/banner.png" />
 </p>
 
+<p align="center">
+    <img style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;" width="80%" src="./images/demo.gif" />
+</p>
+
 ## Inspiration
 
 Algorithm interviews... suck. They're more a test of sanity (and your willingness to "grind") than a true performance indicator. That being said, large language models (LLMs) like Cohere and ChatGPT are rather _good_ at doing LeetCode, so why not make them do the hard work...?
