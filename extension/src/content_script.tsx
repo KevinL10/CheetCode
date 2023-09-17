@@ -18,7 +18,6 @@ async function getChildren() {
         }
     };
     traverse(result);
-    console.log(question);
     return question;
 }
 
@@ -33,17 +32,19 @@ async function getSignature() {
 
 async function sendRequest() {
     setTimeout(async () => {
-        const functionSignature = getSignature();
-        const children = getChildren();
-        console.log(functionSignature, children)
-        await fetch("", {
+        const functionSignature = await getSignature();
+        const question = await getChildren();
+        // console.log(functionSignature, children)
+        console.log("function" + functionSignature)
+        console.log("question" + question)
+        await fetch("http://localhost:3000/solution", {
             method: "POST",
             body: JSON.stringify({
                 signature: functionSignature,
-                children: children,
+                question: question,
             }),
         });
-    }, 2000);
+    }, 10 * 1000);
 }
 
 sendRequest();
