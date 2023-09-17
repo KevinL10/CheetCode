@@ -1,0 +1,9 @@
+curl -X POST -H "Content-Type: application/json" -d '{
+  "question": "Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).",
+  "signature": "def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:"
+}' http://localhost:3000/solution
+
+curl -X POST -H "Content-Type: application/json" -d '{
+    "question": "Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.\n\nYou may assume that each input would have exactly one solution, and you may not use the same element twice.\n\nYou can return the answer in any order.\n\nExample 1:\n\nInput: nums = [2,7,11,15], target = 9\nOutput: [0,1]\nExplanation: Because nums[0] + nums[1] == 9, we return [0, 1].\nExample 2:\n\nInput: nums = [3,2,4], target = 6\nOutput: [1,2]\nExample 3:\n\nInput: nums = [3,3], target = 6\nOutput: [0,1]\n\n\nConstraints:\n\n2 <= nums.length <= 104\n-109 <= nums[i] <= 109\n-109 <= target <= 109\nOnly one valid answer exists.\n\n\nFollow-up: Can you come up with an algorithm that is less than O(n2) time complexity?",
+    "signature": "def twoSum(self, nums: List[int], target: int) -> List[int]:"
+}' http://localhost:3000/solution

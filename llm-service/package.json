@@ -1,19 +1,25 @@
 {
-  "name": "algo-interview-llm-server",
-  "module": "index.ts",
-  "type": "module",
-  "scripts": {
-    "start": "bun run index.ts",
-    "lint": "eslint --ext .ts .",
-    "format": "prettier --write ."
-  },
-  "devDependencies": {
-    "bun-types": "latest",
-    "eslint": "^8.49.0",
-    "prettier": "^3.0.3"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
-  },
-  "dependencies": { "resend": "^1.0.0" }
+    "name": "algo-interview-llm-server",
+    "module": "index.ts",
+    "type": "module",
+    "scripts": {
+        "start": "bun run server.ts",
+        "dev": "bun run --watch server.ts",
+        "server": "bun run server.ts",
+        "cli": "bun run cli.ts",
+        "lint": "eslint --ext .ts .",
+        "format": "prettier --write ."
+    },
+    "devDependencies": {
+        "bun-types": "latest",
+        "eslint": "^8.49.0",
+        "prettier": "^3.0.3"
+    },
+    "peerDependencies": {
+        "typescript": "^5.0.0"
+    },
+    "dependencies": {
+        "bunrest": "^1.3.3",
+        "dotenv": "^16.3.1"
+    }
 }
