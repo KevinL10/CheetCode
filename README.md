@@ -1,6 +1,6 @@
 # CheetCode
 
-<p style="text-align: center">
+<p align="center">
     <img width="30%" src="./images/banner.png" />
 </p>
 
