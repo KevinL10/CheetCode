@@ -4,8 +4,8 @@
     <img width="30%" src="./images/banner.png" />
 </p>
 
-<p align="center">
-    <img style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;" width="80%" src="./images/demo.gif" />
+<p style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;" align="center">
+    <img style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;" width="100%" src="./images/demo.gif" />
 </p>
 
 ## Inspiration
