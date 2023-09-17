@@ -29,7 +29,7 @@ export const createPrompt = (question: string, signature: string): string => {
     Do not include comments in your solution. Make sure your code passes all test cases, is readable, and is efficient.
     `;
 
-    console.log(prompt);
+    // console.log(prompt);
 
     return prompt;
 };
