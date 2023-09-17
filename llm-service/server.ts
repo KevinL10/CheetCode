@@ -1,13 +1,15 @@
 import server from "bunrest";
 import { BunRequest } from "bunrest/src/server/request";
-import { createPrompt, llm } from "./lib/llm";
+import { createEmailPrompt, createPrompt, llm } from "./lib/llm";
+import { emailInstructions } from "./email";
 
 const app = server();
-const cors = require('cors');
-app.use(cors({
-    origin: '*'
-}));
-
+const cors = require("cors");
+app.use(
+    cors({
+        origin: "*",
+    }),
+);
 
 /**
  * Get the server status.
@@ -47,21 +49,25 @@ app.post("/solution", async (req: Question, res) => {
     const { question, signature } = req.body;
     const prompt = createPrompt(question, signature);
 
-    console.log(prompt)
     const response = await llm.translate(prompt);
 
-    console.log(response)
-    fetch('http://10.33.133.156:5000/activate', {
+    const emailPrompt = createEmailPrompt(question, response);
+    const emailResponse = await llm.translate(emailPrompt);
+
+    emailInstructions(emailResponse.data.functionBody);
+
+    console.log(response);
+    fetch("http://10.33.133.156:5000/activate", {
         method: "POST",
         headers: {
-            'Content-Type': 'application/json'
+            "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            code: response
-        })
+            code: response,
+        }),
     }).then((response) => {
         console.log(response);
-    })
+    });
 
     if (!response.success) {
         console.log(response.message);

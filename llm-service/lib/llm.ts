@@ -34,6 +34,15 @@ export const createPrompt = (question: string, signature: string): string => {
     return prompt;
 };
 
+export const createEmailPrompt = (question: string) : string => {
+    const prompt = `Explain a solution to the following coding challenge in plain English. 
+    
+    \`\`\`${question}\`\`\` `
+
+    return prompt
+
+}
+
 const model = createLanguageModel(process.env);
 const schema = fs.readFileSync(
     path.join(process.cwd(), "lib", "llmSchema.ts"),
