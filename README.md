@@ -24,6 +24,8 @@ The hack is the combination of three major components: a Chrome extension, Node 
 
 (P.S. hey Cohere... I added support for your LLM to Microsoft's project [here](https://github.com/michaelfromyeg/typechat). Gimme job plz.)
 
+![An example query response from our LLM service!](images/llm-query.gif)
+
 ## Challenges we ran into
 
 - HTML `Collection` data types are not fun to work with
