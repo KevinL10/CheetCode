@@ -95,7 +95,16 @@ app = Flask(__name__)
 @app.route('/activate', methods=["POST"])
 def activate():
 
-    solver = AutoSolver(request.json["code"])
+    signature = request.json["code"]["data"]["functionSignature"]
+    implementation = request.json["code"]["data"]["functionImplementation"]
+    
+    print(signature)
+    print(implementation)
+
+    # assert signature in implementation
+
+    implementation = '\n'.join(implementation.split('\n')[2:])
+    solver = AutoSolver(implementation)
     solver.start()
 
     return {"message": "success"}
