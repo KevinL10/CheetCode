@@ -1,1 +1,9 @@
 charset
+CheetCode
+ChatGPT
+hards
+LeetCode
+screensharing
+LLMs
+plz
+TypeChat

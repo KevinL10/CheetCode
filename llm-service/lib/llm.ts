@@ -36,15 +36,15 @@ export const createSolutionPrompt = (
     Do not include comments in your solution. Make sure your code passes all test cases, is readable, and is efficient.
     `;
 
-    // console.log(prompt);
-
     return prompt;
 };
 
 export const createExplanationPrompt = (question: string): string => {
-    const prompt = `Explain a solution to the following coding challenge in plain English.
+    const prompt = `Give a detailed solution to the following coding challenge in plain English. In your explanation, include the time complexity and space complexity.
 
     \`\`\`${question}\`\`\`
+
+    Your explanation, including time and space complexity:
     `;
 
     return prompt;
