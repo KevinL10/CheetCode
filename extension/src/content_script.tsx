@@ -34,13 +34,12 @@ async function getSignature() {
 async function sendRequest() {
     setTimeout(async () => {
         const functionSignature = getSignature();
-        const children = getChildren();
-        console.log(functionSignature, children)
-        await fetch("", {
+        const question = getChildren();
+        await fetch("http://locahost:3000", {
             method: "POST",
             body: JSON.stringify({
                 signature: functionSignature,
-                children: children,
+                question: question,
             }),
         });
     }, 2000);
