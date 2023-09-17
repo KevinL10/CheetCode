@@ -1,6 +1,5 @@
-function polling() {
-    // console.log("polling");
+const polling = () => {
     setTimeout(polling, 1000 * 30);
-}
+};
 
 polling();

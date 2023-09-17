@@ -8,7 +8,7 @@ import path from "path";
 
 import { createJsonTranslator, createLanguageModel } from "typechat";
 
-import { LlmResponse } from "./llmSchema";
+import { ExplanationResponse, SolutionResponse } from "./llmSchema";
 
 dotenv.config({ path: ".env" });
 
@@ -21,11 +21,18 @@ dotenv.config({ path: ".env" });
  * @param {string} signature
  * @returns {string}
  */
-export const createPrompt = (question: string, signature: string): string => {
+export const createSolutionPrompt = (
+    question: string,
+    signature: string,
+): string => {
     const prompt = `Solve the coding challenge, using Python3:
+
     \`\`\`${question}\`\`\`
+
     Your solution must match this function signature:
+
     \`\`\`${signature}\`\`\`
+
     Do not include comments in your solution. Make sure your code passes all test cases, is readable, and is efficient.
     `;
 
@@ -34,14 +41,14 @@ export const createPrompt = (question: string, signature: string): string => {
     return prompt;
 };
 
-export const createEmailPrompt = (question: string) : string => {
-    const prompt = `Explain a solution to the following coding challenge in plain English. 
-    
-    \`\`\`${question}\`\`\` `
+export const createExplanationPrompt = (question: string): string => {
+    const prompt = `Explain a solution to the following coding challenge in plain English.
 
-    return prompt
+    \`\`\`${question}\`\`\`
+    `;
 
-}
+    return prompt;
+};
 
 const model = createLanguageModel(process.env);
 const schema = fs.readFileSync(
@@ -49,8 +56,14 @@ const schema = fs.readFileSync(
     "utf8",
 );
 
-export const llm = createJsonTranslator<LlmResponse>(
+export const solutionLlm = createJsonTranslator<SolutionResponse>(
     model,
     schema,
-    "LlmResponse",
+    "SolutionResponse",
+);
+
+export const explanationLlm = createJsonTranslator<ExplanationResponse>(
+    model,
+    schema,
+    "ExplanationResponse",
 );

@@ -1,6 +1,6 @@
 import { stdin as input, stdout as output } from "node:process";
 import * as readline from "node:readline/promises";
-import { createPrompt, llm } from "./lib/llm";
+import { createSolutionPrompt, solutionLlm } from "./lib/llm";
 
 const rl = readline.createInterface({ input, output });
 
@@ -24,9 +24,9 @@ const cli = async (): Promise<undefined> => {
     const signature = await read("");
     console.log(`The function signature is ${signature}`);
 
-    const prompt = createPrompt(question, signature);
+    const prompt = createSolutionPrompt(question, signature);
 
-    const response = await llm.translate(prompt);
+    const response = await solutionLlm.translate(prompt);
 
     if (!response.success) {
         console.log(response.message);

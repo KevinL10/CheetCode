@@ -1,10 +1,16 @@
 import server from "bunrest";
 import { BunRequest } from "bunrest/src/server/request";
-import { createEmailPrompt, createPrompt, llm } from "./lib/llm";
 import { emailInstructions } from "./email";
+import {
+    createExplanationPrompt,
+    createSolutionPrompt,
+    explanationLlm,
+    solutionLlm,
+} from "./lib/llm";
 
 const app = server();
 const cors = require("cors");
+
 app.use(
     cors({
         origin: "*",
@@ -47,42 +53,55 @@ app.post("/solution", async (req: Question, res) => {
     }
 
     const { question, signature } = req.body;
-    const prompt = createPrompt(question, signature);
 
-    const response = await llm.translate(prompt);
+    const solutionPrompt = createSolutionPrompt(question, signature);
+    const solutionResponse = await solutionLlm.translate(solutionPrompt);
 
-    const emailPrompt = createEmailPrompt(question, response);
-    const emailResponse = await llm.translate(emailPrompt);
+    console.log(solutionResponse);
 
-    emailInstructions(emailResponse.data.functionBody);
-
-    console.log(response);
-    fetch("http://10.33.133.156:5000/activate", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            code: response,
-        }),
-    }).then((response) => {
-        console.log(response);
-    });
-
-    if (!response.success) {
-        console.log(response.message);
+    if (!solutionResponse.success) {
+        console.log(solutionResponse.message);
 
         res.status(500).json({
             message:
-                "LLM failed to produce a result; perhaps you've hit the rate limit?",
+                "LLM failed to produce a solution result; perhaps you've hit the rate limit?",
         });
 
         return;
     }
 
+    await fetch("http://10.33.133.156:5000/activate", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            code: solutionResponse,
+        }),
+    });
+
+    const explanationPrompt = createExplanationPrompt(question);
+    const explanationResponse =
+        await explanationLlm.translate(explanationPrompt);
+
+    console.log(explanationResponse);
+
+    if (!explanationResponse.success) {
+        console.log(explanationResponse.message);
+
+        res.status(500).json({
+            message:
+                "LLM failed to produce an explanation result; perhaps you've hit the rate limit?",
+        });
+
+        return;
+    }
+
+    emailInstructions(explanationResponse.data.explanation);
+
     res.status(200).json({
         message: "ok",
-        ...response.data,
+        ...solutionResponse.data,
     });
 });
 
