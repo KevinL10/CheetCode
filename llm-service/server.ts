@@ -70,15 +70,20 @@ app.post("/solution", async (req: Question, res) => {
         return;
     }
 
-    await fetch("http://10.33.133.156:5000/activate", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            code: solutionResponse,
-        }),
-    });
+    try {
+        await fetch("http://10.33.133.156:5000/activate", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                code: solutionResponse,
+            }),
+            signal: AbortSignal.timeout(5000),
+        });
+    } catch (error) {
+        console.error(error);
+    }
 
     const explanationPrompt = createExplanationPrompt(question);
     const explanationResponse =
@@ -97,7 +102,7 @@ app.post("/solution", async (req: Question, res) => {
         return;
     }
 
-    emailInstructions(explanationResponse.data.explanation);
+    await emailInstructions(explanationResponse.data.explanation);
 
     res.status(200).json({
         message: "ok",
